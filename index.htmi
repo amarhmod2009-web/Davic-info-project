@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>مشروع معلومات الجهاز</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0b1020;
+      color: white;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    .header h1 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #aeb8d0;
+    }
+
+    .card {
+      background: #151c31;
+      border: 1px solid #293452;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 21px;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 13px 0;
+      border-bottom: 1px solid #293452;
+    }
+
+    .info:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: #aeb8d0;
+    }
+
+    .value {
+      text-align: left;
+      direction: ltr;
+      word-break: break-word;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #4f7cff;
+      color: white;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #locationResult {
+      margin-top: 15px;
+      line-height: 1.8;
+      color: #cbd5ff;
+    }
+
+    .footer {
+      text-align: center;
+      color: #7f8aa5;
+      margin-top: 25px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h1>📱 مشروع معلومات الجهاز</h1>
+      <p>نظام تحليل معلومات الجهاز عبر المتصفح</p>
+    </div>
+
+    <div class="card">
+      <h2>🔍 المعلومات العامة</h2>
+
+      <div class="info">
+        <span class="label">نظام التشغيل</span>
+        <span class="value" id="os">جارٍ التحليل...</span>
+      </div>
+
+      <div class="info">
+        <span class="label">المتصفح</span>
+        <span class="value" id="browser">جارٍ التحليل...</span>
+      </div>
+
+      <div class="info">
+        <span class="label">دقة الشاشة</span>
+        <span class="value" id="screen">جارٍ التحليل...</span>
+      </div>
+
+      <div class="info">
+        <span class="label">لغة الجهاز</span>
+        <span class="value" id="language">جارٍ التحليل...</span>
+      </div>
+
+      <div class="info">
+        <span class="label">المنطقة الزمنية</span>
+        <span class="value" id="timezone">جارٍ التحليل...</span>
+      </div>
+
+      <div class="info">
+        <span class="label">حجم نافذة المتصفح</span>
+        <span class="value" id="windowSize">جارٍ التحليل...</span>
+      </div>
+
+      <div class="info">
+        <span class="label">حالة الاتصال</span>
+        <span class="value" id="connection">جارٍ التحليل...</span>
+      </div>
+
+      <div class="info">
+        <span class="label">اتجاه الشاشة</span>
+        <span class="value" id="orientation">جارٍ التحليل...</span>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+      <h2>📍 الموقع الجغرافي</h2>
+
+      <p>
+        يمكن للموقع طلب الموقع الجغرافي إذا كان المتصفح والنظام يدعمان ذلك.
+      </p>
+
+      <button onclick="getLocation()">
+        تحديد الموقع
+      </button>
+
+      <div id="locationResult"></div>
+    </div>
+
+
+    <div class="footer">
+      مشروع مدرسي تجريبي — المعلومات المعروضة تعتمد على صلاحيات المتصفح.
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // نظام التشغيل
+    function detectOS() {
+
+      const ua = navigator.userAgent;
+
+      if (/Android/i.test(ua)) {
+        return "Android";
+      }
+
+      if (/iPhone|iPad|iPod/i.test(ua)) {
+        return "iOS";
+      }
+
+      if (/Windows/i.test(ua)) {
+        return "Windows";
+      }
+
+      if (/Mac/i.test(ua)) {
+        return "macOS";
+      }
+
+      if (/Linux/i.test(ua)) {
+        return "Linux";
+      }
+
+      return "غير معروف";
+    }
+
+
+    // المتصفح
+    function detectBrowser() {
+
+      const ua = navigator.userAgent;
+
+      if (/Edg/i.test(ua)) {
+        return "Microsoft Edge";
+      }
+
+      if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) {
+        return "Google Chrome";
+      }
+
+      if (/Firefox/i.test(ua)) {
+        return "Mozilla Firefox";
+      }
+
+      if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) {
+        return "Safari";
+      }
+
+      return "متصفح غير معروف";
+    }
+
+
+    // عرض المعلومات
+    document.getElementById("os").textContent = detectOS();
+
+    document.getElementById("browser").textContent = detectBrowser();
+
+    document.getElementById("screen").textContent =
+      screen.width + " × " + screen.height + " px";
+
+    document.getElementById("language").textContent =
+      navigator.language || "غير متوفر";
+
+    document.getElementById("timezone").textContent =
+      Intl.DateTimeFormat().resolvedOptions().timeZone || "غير متوفر";
+
+    document.getElementById("windowSize").textContent =
+      window.innerWidth + " × " + window.innerHeight + " px";
+
+    document.getElementById("connection").textContent =
+      navigator.onLine ? "متصل بالإنترنت" : "غير متصل";
+
+    document.getElementById("orientation").textContent =
+      screen.orientation
+        ? screen.orientation.type
+        : "غير متوفر";
+
+
+    // الموقع الجغرافي
+    function getLocation() {
+
+      const result = document.getElementById("locationResult");
+
+      if (!navigator.geolocation) {
+
+        result.textContent =
+          "هذا المتصفح لا يدعم تحديد الموقع.";
+
+        return;
+      }
+
+      result.textContent =
+        "جارٍ طلب إذن الموقع...";
+
+      navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+          const latitude =
+            position.coords.latitude;
+
+          const longitude =
+            position.coords.longitude;
+
+          const accuracy =
+            Math.round(position.coords.accuracy);
+
+          result.innerHTML =
+            "✅ تم السماح بالموقع<br><br>" +
+            "خط العرض: " + latitude + "<br>" +
+            "خط الطول: " + longitude + "<br>" +
+            "الدقة التقريبية: " + accuracy + " متر";
+        },
+
+        function(error) {
+
+          if (error.code === 1) {
+
+            result.textContent =
+              "تم رفض إذن الموقع.";
+
+          } else {
+
+            result.textContent =
+              "تعذر الحصول على الموقع.";
+          }
+        }
+
+      );
+    }
+
+  </script>
+
+</body>
+</html>
